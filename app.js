@@ -70,7 +70,8 @@ function initCharts() {
                         label: (c) => {
                             const total = c.dataset.data.reduce((a, b) => a + b, 0);
                             const pct = total ? ((c.raw / total) * 100).toFixed(1) : 0;
-                            return ` $${fmt(c.raw)} (${pct}%)`;
+                            // CAMBIO: Mostrar cantidades (unidades enteros) en lugar de dinero en el tooltip
+                            return ` ${fmtInt(c.raw)} uds (${pct}%)`;
                         },
                     },
                 },
@@ -145,7 +146,8 @@ function initCharts() {
                         label: (c) => {
                             const total = c.dataset.data.reduce((a, b) => a + b, 0);
                             const pct = total ? ((c.raw / total) * 100).toFixed(1) : 0;
-                            return ` $${fmt(c.raw)} (${pct}%)`;
+                            // CAMBIO: Mostrar cantidades (unidades enteros) en lugar de dinero en el tooltip global
+                            return ` ${fmtInt(c.raw)} uds (${pct}%)`;
                         },
                     },
                 },
@@ -304,7 +306,9 @@ function renderOverview(ov) {
     ovMixChart.data.datasets[0].data = mixValues;
     ovMixChart.update();
 
-    document.getElementById('ov-mix-center').textContent = `$${fmt(m.total_revenue)}`;
+    // CAMBIO: Mostrar la suma de todas las unidades físicas totales acumuladas en el centro de la dona
+    const totalOvUnits = mixValues.reduce((a, b) => a + b, 0);
+    document.getElementById('ov-mix-center').textContent = fmtInt(totalOvUnits);
 
     document.getElementById('ov-mix-legend').innerHTML = MIX_LABELS.slice(0, 3).map((label, i) => {
         const keys = ['popcorn', 'polly', 'pioneer'];
@@ -406,7 +410,9 @@ function renderDashboard(week) {
     mixChart.data.datasets[0].data = week.charts.values;
     mixChart.update();
 
-    document.getElementById('mix-center').textContent = `$${fmt(m.total_revenue)}`;
+    // CAMBIO: Calcular el total físico de unidades semanales del mix para renderizarlo al centro
+    const totalWeekUnits = week.charts.values.reduce((a, b) => a + b, 0);
+    document.getElementById('mix-center').textContent = fmtInt(totalWeekUnits);
 
     document.getElementById('mix-legend').innerHTML = MIX_LABELS.slice(0, 3).map((label, i) => {
         const keys = ['popcorn', 'polly', 'pioneer'];

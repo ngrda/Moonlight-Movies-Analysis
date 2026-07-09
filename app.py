@@ -97,18 +97,25 @@ def build_week_payload(global_row, indi_row, index, prev_global_row=None):
     revenue = float(global_row["Net Sales"])
     prev_revenue = float(prev_global_row["Net Sales"]) if prev_global_row is not None else 0
 
-    popcorn_sales = float(global_row["Popcorn Sales"])
-    snowcone_sales = float(global_row["Snowcones Sales"])
-    polly_sales = float(global_row["Polly's Sales"])
-    pioneer_sales = float(global_row["Pioneer Sales"])
-    others_sales = float(global_row["Others"])
+    # CAMBIO: Extraer las unidades físicas de las columnas de conteo en mlm_global
+    # Asegúrate de que los nombres coincidan exactamente con tus columnas (ej. "Popcorn", "Snowcones")
+    popcorn_units = int(global_row["Popcorn"])
+    snowcone_units = int(global_row["Snowcones"])
+    
+    # Para los refrescos (Polly y Pioneer), sumamos las unidades vendidas desde indi_row
+    polly_units = sum(int(v) for k, v in indi_row.items() if k.startswith("Polly"))
+    pioneer_units = sum(int(v) for k, v in indi_row.items() if k.startswith("Pioneer"))
+    
+    # Si "Others" no tiene desglose físico, puedes dejarlo en 0 o estimarlo. Aquí lo tratamos como unidades:
+    others_units = int(global_row.get("Others", 0)) 
 
+    # Cambiamos el mix para que guarde unidades en lugar de dinero
     mix = {
-        "popcorn": round(popcorn_sales, 2),
-        "snowcones": round(snowcone_sales, 2),
-        "polly": round(polly_sales, 2),
-        "pioneer": round(pioneer_sales, 2),
-        "others": round(others_sales, 2),
+        "popcorn": popcorn_units,
+        "snowcones": snowcone_units,
+        "polly": polly_units,
+        "pioneer": pioneer_units,
+        "others": others_units,
     }
     mix_total = sum(mix.values())
     mix_pct = {k: round((v / mix_total) * 100, 1) if mix_total else 0 for k, v in mix.items()}

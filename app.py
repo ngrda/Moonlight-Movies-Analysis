@@ -120,6 +120,11 @@ def build_week_payload(global_row, indi_row, index, prev_global_row=None):
     mix_total = sum(mix.values())
     mix_pct = {k: round((v / mix_total) * 100, 1) if mix_total else 0 for k, v in mix.items()}
 
+    # Revenue (beneficio) breakdown: allocate the week's actual Net Sales across
+    # categories using the same proportions as the unit mix, so the dollar figures
+    # always add up to the real net revenue for the week.
+    mix_revenue = {k: round((pct / 100) * revenue, 2) for k, pct in mix_pct.items()}
+
     top_products = build_top_products(global_row, indi_row)
     product_units = sum(p["units"] for p in top_products if p["category"] == "soda")
 
@@ -149,10 +154,12 @@ def build_week_payload(global_row, indi_row, index, prev_global_row=None):
         },
         "breakdown": mix,
         "breakdown_pct": mix_pct,
+        "breakdown_revenue": mix_revenue,
         "top_products": top_products[:5],
         "charts": {
             "labels": ["Popcorn", "Snowcones", "Polly's Pop", "Pioneer", "Others"],
             "values": [mix["popcorn"], mix["snowcones"], mix["polly"], mix["pioneer"], mix["others"]],
+            "revenue_values": [mix_revenue["popcorn"], mix_revenue["snowcones"], mix_revenue["polly"], mix_revenue["pioneer"], mix_revenue["others"]],
         },
         "raw": {
             "global": {k: (float(v) if isinstance(v, (int, float)) else str(v)) for k, v in global_row.items() if k != "_id"},

@@ -13,7 +13,6 @@
 </head>
 <body class="app-shell">
 
-    <!-- Week selector sidebar -->
     <aside class="week-panel">
         <div class="week-panel-header">
             <div class="brand">
@@ -49,7 +48,6 @@
         </div>
     </aside>
 
-    <!-- Main content -->
     <main class="main-panel">
         <header class="page-header">
             <div>
@@ -77,7 +75,6 @@
         </div>
 
         <div id="overview-dashboard" class="dashboard hidden">
-            <!-- KPI row -->
             <section class="kpi-grid">
                 <article class="kpi-card kpi-primary">
                     <p class="kpi-label">Total Revenue (All Weeks)</p>
@@ -100,7 +97,6 @@
                 </article>
             </section>
 
-            <!-- Charts -->
             <section class="chart-grid">
                 <article class="panel panel-wide">
                     <div class="panel-head">
@@ -117,15 +113,15 @@
                 <article class="panel">
                     <div class="panel-head">
                         <div>
-                            <h2 class="panel-title">Overall Mix</h2>
-                            <p class="panel-sub">Share of total revenue, all weeks</p>
+                            <h2 class="panel-title">Total Products Sold</h2>
+                            <p class="panel-sub">Share of total units sold (All Weeks)</p>
                         </div>
                     </div>
                     <div class="chart-wrap chart-donut">
                         <canvas id="ovMixChart"></canvas>
                         <div class="donut-label">
                             <span id="ov-mix-center" class="donut-value">—</span>
-                            <span class="donut-caption">Total</span>
+                            <span class="donut-caption">Units</span>
                         </div>
                     </div>
                     <div class="legend-grid" id="ov-mix-legend"></div>
@@ -146,7 +142,6 @@
                 </article>
             </section>
 
-            <!-- Bottom panels -->
             <section class="bottom-grid">
                 <article class="panel">
                     <div class="panel-head">
@@ -193,7 +188,6 @@
         </div>
 
         <div id="dashboard" class="dashboard hidden">
-            <!-- KPI row -->
             <section class="kpi-grid">
                 <article class="kpi-card kpi-primary">
                     <p class="kpi-label">Net Revenue</p>
@@ -217,7 +211,6 @@
                 </article>
             </section>
 
-            <!-- Charts -->
             <section class="chart-grid">
                 <article class="panel panel-wide">
                     <div class="panel-head">
@@ -234,22 +227,21 @@
                 <article class="panel">
                     <div class="panel-head">
                         <div>
-                            <h2 class="panel-title">Category Mix</h2>
-                            <p class="panel-sub">Share of total revenue</p>
+                            <h2 class="panel-title">Total Products Sold</h2>
+                            <p class="panel-sub">Share of total units sold this week</p>
                         </div>
                     </div>
                     <div class="chart-wrap chart-donut">
                         <canvas id="mixChart"></canvas>
                         <div class="donut-label">
                             <span id="mix-center" class="donut-value">—</span>
-                            <span class="donut-caption">Total</span>
+                            <span class="donut-caption">Units</span>
                         </div>
                     </div>
                     <div class="legend-grid" id="mix-legend"></div>
                 </article>
             </section>
 
-            <!-- Bottom panels -->
             <section class="bottom-grid">
                 <article class="panel">
                     <div class="panel-head">
@@ -265,20 +257,20 @@
                             <span class="stat-value" id="stat-units">0</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Customers</span>
-                            <span class="stat-value" id="stat-customers">0</span>
+                            <span class="stat-label">Popcorn Spend Per Person</span>
+                            <span class="stat-value" id="stat-popcorn-spend">$0.00</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Popcorn</span>
+                            <span class="stat-label">Popcorn Units</span>
                             <span class="stat-value" id="stat-popcorn">0</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Snowcones</span>
+                            <span class="stat-label">Snowcones Units</span>
                             <span class="stat-value" id="stat-snowcones">0</span>
                         </div>
                         <div class="stat-item">
-                            <span class="stat-label">Deliveries</span>
-                            <span class="stat-value" id="stat-deliveries">0</span>
+                            <span class="stat-label">Snowcone Spend Per Person</span>
+                            <span class="stat-value" id="stat-snowcone-spend">$0.00</span>
                         </div>
                     </div>
                 </article>

@@ -1,4 +1,4 @@
-const API = 'http://127.0.0.1:5050';
+const API = '';
 
 let weeks = [];
 let selectedWeekId = null;
